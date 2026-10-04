@@ -366,7 +366,7 @@ Gegenrichtung und bricht diese Kopplung - deshalb bringt sie so viel. Das Verfah
 gleichberechtigt daneben, und Meldungen über einzelne Netze nennen eine Schwelle aus dem gemessenen Rauschen.
 
 **Grenzen.** Synthetisches Netz, nur Umstiege über genau einen Umstieg, Nachfrage nicht nach Tageszeit, Fahrzeiten proportional zur Entfernung, keine lastabhängige Haltezeit, keine Block-
-oder Weichenlogik bei der Zugfolge (die eigentliche Trassenvergabe wäre ein eigener Baustein). Die Haltezeit-Spielräume rechnet nur das exakte Modell (CP-SAT, meist nicht bewiesen).
+oder Weichenlogik bei der Zugfolge (die eigentliche Trassenvergabe ist der Baustein [Trassenkonflikt](https://sebastianhanisch-streckenkonflikt-demo.streamlit.app/)). Die Haltezeit-Spielräume rechnet nur das exakte Modell (CP-SAT, meist nicht bewiesen).
 """
     )
 

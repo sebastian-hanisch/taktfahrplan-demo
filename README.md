@@ -12,6 +12,8 @@ periodischen Differenzbedingungen modulo T.
 Jede Linie fährt in beide Richtungen alle 60 Minuten; gewählt wird, in welcher Minute sie startet, wie die Standzeit an den Endpunkten aufgeteilt wird, ob Linien einen
 Zusatzzug bekommen und ob zwischen Zügen auf demselben Abschnitt eine Mindest-Zugfolge liegen muss. Gemessen wird die mittlere Wartezeit der Umsteiger.
 
+Weitere Bausteine der Reihe: [Trassenkonflikt](https://github.com/sebastian-hanisch/trassenkonflikt-demo), [Fahrzeitreserve](https://github.com/sebastian-hanisch/fahrzeitreserve-demo), [Energieoptimale Fahrweise](https://github.com/sebastian-hanisch/energiefahrweise-demo), [Crew Pairing](https://github.com/sebastian-hanisch/crew-pairing-demo), [Ablaufberg](https://github.com/sebastian-hanisch/ablaufberg-demo). Die ganze Reihe mit Querverweisen auf verwandte Modelle steht auf der Seite [Schienenverkehr optimieren](https://sebastianhanisch.net/schienenverkehr-optimierung.html).
+
 ## Kernfrage
 
 Wie lange wartet, wer im Taktnetz umsteigt, und welcher Spielraum im Fahrplan bringt wie viel und kostet was? Die Antwort ist nicht „die Heuristik schlägt das exakte
@@ -75,8 +77,8 @@ Alle Zahlen stehen in `tests/test_claims.py`. Mittel ± Standardfehler über **1
 
 - Synthetisches Netz mit wenigen Umsteigern; nur Umstiege über genau einen Umstieg; Nachfrage nicht nach Tageszeit; Fahrzeiten proportional zur Entfernung; keine lastabhängige
   Haltezeit. Die Zahlen belegen Richtung und Größenordnung auf diesen Netzen, keine absoluten Minutenwerte realer Netze.
-- Die **Zugfolge** ist nur ein Vorgriff: Abstand der Abfahrten auf demselben gerichteten Abschnitt, keine Block-, Weichen- oder Überholungslogik. Die eigentliche Trassenvergabe wäre
-  ein eigener Baustein.
+- Die **Zugfolge** ist nur ein Vorgriff: Abstand der Abfahrten auf demselben gerichteten Abschnitt, keine Block-, Weichen- oder Überholungslogik. Die eigentliche Trassenvergabe ist der Baustein
+  [Trassenkonflikt](https://github.com/sebastian-hanisch/trassenkonflikt-demo).
 - Der **Zusatzzug** zählt nur den Bestand (Zyklusdauer geteilt durch den Takt); ein Fahrzeugumlauf im Detail (Depot, Wartung) ist nicht modelliert.
 - Die Lokalsuche ist eine Heuristik: ein einzelnes Netz streut bis etwa 1 min. Deshalb stehen Messreihe und Live-Netz gleichberechtigt nebeneinander.
 - Den **Haltezeit-Spielraum** rechnet nur das exakte Modell, überwiegend unbewiesen. Das heißt nicht, dass nur CP-SAT ihn könnte; die Lokalsuche dafür ist nicht gebaut.
@@ -114,7 +116,7 @@ python -m pytest tests -q
 
 ## Bewusst nicht umgesetzt
 
-Fahrzeugumlauf im Detail, Trassenvergabe mehrerer Bahnunternehmen, Personaleinsatz, Rangierbahnhof und Störungsmanagement (weitere Bausteine der Reihe), Takt T = 30,
+Fahrzeugumlauf im Detail (bei einem Depot ein Zuordnungs- bzw. Min-Cost-Flow-Problem, kein eigener Baustein) und Störungsmanagement; die Trassenvergabe mehrerer Bahnunternehmen ist der Baustein [Trassenkonflikt](https://github.com/sebastian-hanisch/trassenkonflikt-demo), der Personaleinsatz das [Crew Pairing](https://github.com/sebastian-hanisch/crew-pairing-demo), die Zugbildung der [Ablaufberg](https://github.com/sebastian-hanisch/ablaufberg-demo). Außerdem: Takt T = 30,
 Mehrfach-Umstiege, Nachfrage nach Tageszeit, Haltezeit-Spielraum in der Lokalsuche, Kalibrierung an realen Fahrplandaten.
 
 ## Lokal ausführen
