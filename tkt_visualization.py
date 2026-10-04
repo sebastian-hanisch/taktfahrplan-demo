@@ -2,7 +2,6 @@
 Karte mit scaleanchor nur mit autorange und Eckmarkern (Plotly friert sonst den Bereich beim ersten Zeichnen ein)."""
 from __future__ import annotations
 
-import math
 
 import plotly.graph_objects as go
 
@@ -43,22 +42,19 @@ def build_staircase(stages: dict, lower_bound: float, reference: dict | None = N
 
 
 def build_network_map(inst, coords, stage_lines=None, highlight_stop: int | None = None, allowed_lines=None) -> go.Figure:
-    """Netzkarte: Linien in Farbe (parallel versetzt), Haltestellen mit Nummer, optional ein hervorgehobener Umsteigeknoten."""
+    """Netzkarte: Linien in Farbe (auf den Haltestellen, bei gemeinsamen Abschnitten gestaffelte Breite), Haltestellen mit Nummer, optional ein hervorgehobener Umsteigeknoten."""
     fig = go.Figure()
     n = len(inst.lines)
     for li, line in enumerate(inst.lines):
-        shift = (li - (n - 1) / 2) * 0.9
+        # Linien liegen genau auf den Haltestellen; wo mehrere denselben Abschnitt befahren, liegt die breiteste (erste Linie) unten und
+        # jede weitere schmaler darüber, damit alle Farben sichtbar bleiben und jede Kante an der Haltestelle endet.
         xs, ys = [], []
         for a, b in zip(line.stops, line.stops[1:]):
-            x0, y0, x1, y1 = (float(coords[a][0]), float(coords[a][1]), float(coords[b][0]), float(coords[b][1]))
-            dx, dy = x1 - x0, y1 - y0
-            norm = math.hypot(dx, dy) or 1.0
-            ox, oy = -dy / norm * shift, dx / norm * shift
-            xs += [x0 + ox, x1 + ox, None]
-            ys += [y0 + oy, y1 + oy, None]
+            xs += [float(coords[a][0]), float(coords[b][0]), None]
+            ys += [float(coords[a][1]), float(coords[b][1]), None]
         extra = " (Zusatzzug erlaubt)" if allowed_lines and allowed_lines[li] else ""
-        fig.add_trace(go.Scatter(x=xs, y=ys, mode="lines", line=dict(color=C.LINE_COLORS[li % len(C.LINE_COLORS)], width=3.5), opacity=0.85,
-                                 name=f"Linie {li + 1}{extra}", hoverinfo="name"))
+        fig.add_trace(go.Scatter(x=xs, y=ys, mode="lines", line=dict(color=C.LINE_COLORS[li % len(C.LINE_COLORS)], width=2.5 + 1.1 * (n - 1 - li)),
+                                 opacity=0.9, name=f"Linie {li + 1}{extra}", hoverinfo="name"))
     used = sorted({s for line in inst.lines for s in line.stops})
     fig.add_trace(go.Scatter(x=[float(coords[s][0]) for s in used], y=[float(coords[s][1]) for s in used], mode="markers+text",
                              marker=dict(size=9, color="white", line=dict(color="#1c2430", width=1.5)), text=[str(s) for s in used],
@@ -69,7 +65,7 @@ def build_network_map(inst, coords, stage_lines=None, highlight_stop: int | None
                                  marker=dict(size=20, color="rgba(0,0,0,0)", line=dict(color="#c0392b", width=3)), name="gewählter Anschluss",
                                  hoverinfo="skip"))
     fig.add_trace(go.Scatter(x=[0, 100], y=[0, 100], mode="markers", marker=dict(opacity=0), showlegend=False, hoverinfo="skip"))
-    fig.update_layout(height=480, margin=dict(l=10, r=10, t=30, b=10), legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0))
+    fig.update_layout(height=540, margin=dict(l=10, r=10, t=30, b=10), legend=dict(orientation="h", yanchor="bottom", y=1.0, xanchor="left", x=0))
     fig.update_xaxes(visible=False, fixedrange=True, scaleanchor="y", scaleratio=1)
     fig.update_yaxes(visible=False, fixedrange=True, autorange="reversed")
     return fig

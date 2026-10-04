@@ -1,5 +1,7 @@
 # Taktfahrplan: Umsteigen im Takt (Streamlit-Demo)
 
+**[→ Demo live ausprobieren](https://sebastianhanisch-taktfahrplan-demo.streamlit.app/)**
+
 Interaktive **Fall-Demo** zum **Taktfahrplan** (Periodic Event Scheduling Problem, PESP; Serafini & Ukovich 1989) im Portfolio von
 [Sebastian Hanisch](https://sebastianhanisch.net) (Operations Research und Machine Learning). Fortsetzung von
 [transit-demo](https://github.com/sebastian-hanisch/transit-demo) (Liniennetz, dort ausdrücklich „ohne Taktfrequenz/Fahrplan“) und **erster Baustein der Reihe
