@@ -1,0 +1,6 @@
+streamlit>=1.51
+plotly>=5.24
+numpy>=1.26
+pandas>=2.0
+fpdf2>=2.7
+ortools>=9.10
