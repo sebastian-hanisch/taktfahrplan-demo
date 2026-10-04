@@ -127,3 +127,7 @@ streamlit run app.py
 Die Messreihe neu erzeugen (Minuten bis Stunden): `python tools/sweep.py nets 6 tools/raw/nets_6.jsonl` (und die übrigen Unterbefehle, siehe Kopf von `tools/sweep.py`), dann `python tools/dump_sweep.py`.
 
 Gebaut mit Streamlit, Plotly, NumPy, OR-Tools und fpdf2.
+
+---
+
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zum Thema: [ÖPNV und Fernverkehr optimieren](https://sebastianhanisch.net/oepnv-fernverkehr-optimierung.html).
