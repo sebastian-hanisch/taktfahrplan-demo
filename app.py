@@ -49,6 +49,17 @@ gekoppelt**) und was **Standzeit am Endpunkt**, **Zusatzzüge** und eine **Minde
 vorgerechnet über 150 Netze. Mehr dazu in „Wie funktioniert diese Demo?“ und „📐 Mathematische Formulierung“ am Ende der Seite.
 """
 )
+
+# erklaerseite:einfach:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/taktfahrplan-erklaert.json, nicht von Hand ändern)
+with st.expander("💬 In einfachen Worten"):
+    st.markdown(
+        """
+Ein Bahnnetz fährt im **Takt**: Jede Linie fährt in beide Richtungen jede Stunde zur selben Minute ab. Gewählt wird, in welcher Minute jede Linie startet, wie lange ihr Zug an den Endpunkten steht, ob Linien einen **Zusatzzug** bekommen und welchen Abstand Züge auf demselben Gleisstück mindestens halten müssen. Die Demo misst, wie lange Fahrgäste beim Umsteigen im Mittel warten. Dabei zeigt sich, dass Hin- und Rückrichtung eines Anschlusses **gekoppelt** sind: Was die Wartezeit in der einen Richtung kürzer macht, macht sie in der anderen länger. Die Netze sind erfunden und stark vereinfacht. Die Ergebnisse zeigen Richtung und Größenordnung, keine Minutenwerte echter Netze.
+
+[Ausführlich und verständlich erklärt, mit Fachteil](https://sebastianhanisch.net/taktfahrplan-erklaert.html)
+        """
+    )
+# erklaerseite:einfach:end
 st.caption(
     "Fortsetzung von [transit-demo](https://sebastianhanisch-transit-demo.streamlit.app/) (Liniennetz ohne Fahrplan) und erster Baustein "
     "der Reihe Bahn/Schienenverkehr. Anders als [raptor-demo](https://sebastianhanisch-raptor-demo.streamlit.app/) (Verbindungsauskunft auf "
@@ -109,7 +120,7 @@ m2.metric("Umsteiger mit höchstens 10 min", f"{100 * best['le10']:.0f} %", delt
 m3.metric("Zugbestand (Basis + Zusatzzüge)", f"{best['fleet']}", delta=f"{best['fleet'] - run['base_fleet']:+d} Zusatzzüge", delta_color="off",
           help="Zugbestand = Summe der Fahrzeuge aller Linien (Zyklusdauer geteilt durch den Takt).")
 m4.metric("Untergrenze durch die Hin/Rück-Kopplung", f"{run['lower_bound']:.1f} min",
-          help="Mit Standard-Standzeit kann kein Takt im Mittel besser sein (Phasen-Modell). Die Aufteilung der Standzeit bricht diese Grenze.")
+          help="Mit Standard-Standzeit kann kein Takt im Mittel besser sein (Phasen-Modell). Die Aufteilung der Standzeit kann diese Grenze unterschreiten (in der Messreihe in 54 von 150 Netzen; im Mittel liegt sie darüber).")
 
 thr_split = noise["split"]
 gain, (state, text) = split_message(stages, thr_split)
@@ -371,6 +382,28 @@ oder Weichenlogik bei der Zugfolge (die eigentliche Trassenvergabe ist der Baust
     )
 
 with st.expander("📐 Mathematische Formulierung"):
+    # erklaerseite:lesehilfe:start (erzeugt von tools/set_demo_explainer.py (Website-Repo) aus tools/content/explainers/taktfahrplan-erklaert.json, nicht von Hand ändern)
+    st.markdown(
+        r"""
+**Lesehilfe.** Gegeben sind ein Liniennetz mit Takt $T$, die Fahrzeiten und die Nachfrage der Umsteiger. Gesucht sind die Abfahrtsminuten der Linien und die Verteilung ihrer Standzeit, bei denen die nachfragegewichtete mittlere Umsteigezeit am kleinsten wird.
+
+| Symbol | Bedeutung |
+|---|---|
+| $T$ | Takt in Minuten |
+| $\pi_i$ | Zeitpunkt des Ereignisses $i$ (Ankunft oder Abfahrt) im Takt |
+| $x_a$ | Dauer der Aktivität $a$ (Fahrt, Halt, Standzeit, Umstieg, Zugfolge) |
+| $p_a$ | ganze Zahl voller Takte, die zur Dauer $x_a$ gehört |
+| $\ell_a$, $u_a$ | untere und obere Grenze der Dauer $x_a$ |
+| $w_a$ | Nachfrage der Umstiegsaktivität $a$ |
+| $v$ | Zugzahl einer Linie |
+| $c$ | Rest der Kopplung: kleinste Summe beider Umsteigezeiten ist $2\cdot 3 + c$ |
+| $D_1$, $D_2$ | Umsteigezeit von Hin- und Rückweg bei Phase 0 abzüglich der Mindestzeit |
+| $k$ | 0 oder 1: ein Takt Aufschlag auf die kleinste Summe |
+
+[Schritt für Schritt erklärt, mit Herleitung und Literatur](https://sebastianhanisch.net/taktfahrplan-erklaert.html#fachleute)
+        """
+    )
+    # erklaerseite:lesehilfe:end
     st.markdown(
         r"""
 **Ereignisse und Aktivitäten (PESP).** Ereignisse $i$ (Ankunft oder Abfahrt an einer Haltestelle in einer Richtung) haben einen Zeitpunkt $\pi_i \in [0, T)$. Eine Aktivität

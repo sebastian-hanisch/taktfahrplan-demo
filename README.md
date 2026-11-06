@@ -40,7 +40,7 @@ Verfahren“: Greedy und Lokalsuche sind für die Phasen-Aufgabe fast schon opti
   Mindestzeit 3 min + Wartezeit (mod 60). Nur ein kleiner Teil der Nachfrage steigt um (6 bis 21 % je Netz); der Takt wirkt nur auf ihn.
 - **PESP-Form:** π_j − π_i + T·p = x mit x ∈ [l, u]; Fahrt fest, Halt 2 min (exakt 1–3), Standzeit [4, 63], Umstieg [3, 62], Zugfolge [h, T−h].
 - **Hin/Rück-Kopplung:** bei festen Fahrzeiten ist die Summe der beiden Wartezeiten eines Anschlusses 2·3 + c oder genau einen Takt mehr, mit c = (D1 + D2) mod T; der kleinere
-  Wert gilt für genau c + 1 der 60 Versätze. Die Summe aller dieser Untergrenzen begrenzt die Phasen-Aufgabe von unten; die Aufteilung der Standzeit bricht sie.
+  Wert gilt für genau c + 1 der 60 Versätze. Die Summe aller dieser Untergrenzen begrenzt die Phasen-Aufgabe von unten; die Aufteilung der Standzeit kann sie unterschreiten (in der Messreihe in 54 von 150 Netzen; im Mittel bei 5, 6, 8 und 10 Linien liegt das Ergebnis mit verteilter Standzeit darüber, bei 6 Linien 19,4 gegen 18,1 min).
 
 ## Methodik
 
