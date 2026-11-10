@@ -231,7 +231,7 @@ else:
 # ------------------------------------------------------------------ Kernabschnitt: Messreihe
 st.markdown("---")
 st.subheader("📐 Was die Messreihe über 150 Netze zeigt")
-st.caption(f"Vorgerechnet (tools/sweep.py, {res['meta']['nets_per_size']} Netze je Linienzahl, {C.N_STOPS} Haltestellen, Takt {C.T} min): ein einzelnes Netz streut, die Mittelwerte tragen.")
+st.caption(f"Vorgerechnet (tools/sweep.py, {res['meta']['nets_per_size']} Netze je Linienzahl, {C.N_STOPS} Haltestellen, Takt {C.T} min): ein einzelnes Netz streut, die Mittelwerte belegen es.")
 sweep_idx = list(C.LINES_OPTIONS).index(cmp_lines)
 sweep_lines = st.selectbox("Netzgröße der Messreihe (Linien)", C.LINES_OPTIONS, index=sweep_idx, key="sweep_lines_select")
 casc = R.cascade(res, sweep_lines)
