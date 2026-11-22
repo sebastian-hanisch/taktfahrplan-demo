@@ -357,7 +357,7 @@ with st.expander("Wie funktioniert diese Demo?"):
 **Netz.** {C.N_STOPS} Haltestellen auf einem 100 × 100-Raster, symmetrische Fahrgast-Nachfrage mit zwei Hubs, 3 bis 10 Linien aus der Nachfrage-Greedy-Konstruktion der
 transit-demo (Linien sind einfache Pfade, in beide Richtungen befahren). Alles ganzzahlig und mit dem Zufallsgenerator SplitMix64 erzeugt, damit jedes Netz überall dasselbe ist.
 
-**Takt und Zeiten.** Jede Linie fährt in jede Richtung ein Mal je {C.T} Minuten. Fahrzeit je Abschnitt = Entfernung geteilt durch 5 (mindestens 2 min), Halt {C.DWELL} min, Standzeit am
+**Takt und Zeiten.** Jede Linie fährt in jede Richtung ein Mal je {C.T} Minuten. Fahrzeit je Abschnitt = Entfernung geteilt durch 5 (mindestens 2 min), Halt {C.DWELL} min, Standzeit (Wendezeit, englisch Turnaround Time) am
 Endpunkt mindestens {C.TURN_MIN} min. Der Zyklus (Hin + Wende + Rück + Wende) muss ein Vielfaches des Taktes werden; der nötige **Schlupf** geht in die Standzeit an den Endpunkten.
 
 **Umsteiger.** Je Haltestellenpaar ohne Direktlinie die Route mit kürzester Fahrzeit über genau einen Umstieg; die Nachfrage steigt je zur Hälfte in jede Richtung um. Umsteigezeit =

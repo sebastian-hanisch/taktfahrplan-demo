@@ -34,7 +34,7 @@ Verfahren“: Greedy und Lokalsuche sind für die Phasen-Aufgabe fast schon opti
 
 - **Netz:** 20 Haltestellen auf einem 100 × 100-Raster, symmetrische ganzzahlige Nachfrage mit zwei Hubs, 3 bis 10 Linien aus dem Port der Nachfrage-Greedy-Konstruktion der
   transit-demo (einfache Pfade, höchstens 6 Halte, in beide Richtungen befahren). Alles ganzzahlig mit **SplitMix64** erzeugt (`tkt_rng.py`, `tkt_network.py`).
-- **Zeiten:** Fahrzeit je Abschnitt = Entfernung (ganzzahlig über `isqrt`) / 5, mindestens 2 min; Halt 2 min; Standzeit am Endpunkt mindestens 4 min. Der Zyklus (Hin + Wende +
+- **Zeiten:** Fahrzeit je Abschnitt = Entfernung (ganzzahlig über `isqrt`) / 5, mindestens 2 min; Halt 2 min; Standzeit (Wendezeit, englisch Turnaround Time) am Endpunkt mindestens 4 min. Der Zyklus (Hin + Wende +
   Rück + Wende) muss ein Vielfaches des Taktes werden; der nötige **Schlupf** geht in die Standzeit, höchstens 59 min je Ende.
 - **Umsteiger:** je Haltestellenpaar ohne Direktlinie die Route mit kürzester Fahrzeit über genau einen Umstieg, Nachfrage je zur Hälfte in jede Richtung. Umsteigezeit =
   Mindestzeit 3 min + Wartezeit (mod 60). Nur ein kleiner Teil der Nachfrage steigt um (6 bis 21 % je Netz); der Takt wirkt nur auf ihn.
